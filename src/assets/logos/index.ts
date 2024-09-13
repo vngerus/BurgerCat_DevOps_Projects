@@ -1,0 +1,1 @@
+export { default as logoburguer } from './burguercat.png'
