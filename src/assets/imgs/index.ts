@@ -1,0 +1,1 @@
+export { default as HeroBurguer } from './heroburguer.png';
