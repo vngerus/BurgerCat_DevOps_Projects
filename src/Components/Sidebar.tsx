@@ -4,7 +4,7 @@ import { FaBars, FaHome, FaShoppingCart } from 'react-icons/fa';
 const Sidebar: React.FC = () => {
    return (
       <aside
-         className="fixed w-full inset-x-0 bottom-0 z-40 bg-gray-800 h-14"
+         className="fixed w-full inset-x-0 bottom-0 z-40 bg-orangeBG h-14"
          aria-label="Sidebar"
          style={{ maxWidth: '768px', left: '50%', transform: 'translateX(-50%)' }}
       >

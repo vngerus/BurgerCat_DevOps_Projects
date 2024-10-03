@@ -1,12 +1,8 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-
-import Home from './pages/Home';
+import { Footer, Loader, Menu, MenuCategories, Navbar, Orders, Sidebar } from './components';
+import { Home, OrderStatus } from './pages';
 import PaymentPage from './payments/Payment';
-import OrderStatus from './pages/OrderStatus';
-import { Footer, Loader, Menu, Navbar, Orders, Sidebar } from './Components';
-import MenuCategories from './Components/MenuCategories';
-
 
 const App: React.FC = () => {
   const [hasEntered, setHasEntered] = useState(false);

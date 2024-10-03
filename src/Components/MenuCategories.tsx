@@ -20,9 +20,9 @@ const MenuCategories: React.FC = () => {
                         key={index}
                         onClick={() => setSelectedCategory(category.name)}
                         className={`flex flex-col items-center p-4 sm:p-6 rounded-lg shadow-md sm:shadow-lg w-24 sm:w-32 cursor-pointer transition-all ${selectedCategory === category.name
-                            ? 'bg-red-500 text-white'
+                            ? 'bg-orangeBG orangeBG2'
                             : 'bg-white text-gray-800'
-                            } hover:bg-red-400 hover:text-white`}
+                            } hover:bg-orangeBG2 hover:text-white`}
                     >
                         <div className="text-3xl sm:text-4xl mb-2">{category.icon}</div>
                         <span className="text-sm sm:text-lg font-medium text-center">{category.name}</span>
