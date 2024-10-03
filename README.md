@@ -1,30 +1,50 @@
-# React + TypeScript + Vite
+# BurguerCat DevOps Projects
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Descripción
+Proyecto en PROCESO para Certificación de DevOps de Kibernum IT en conjunto a Talento Digital para Chile. Este proyecto busca implementar y demostrar prácticas de desarrollo y operaciones eficientes utilizando tecnologías modernas de front-end, back-end y testeos unitarios.
 
-Currently, two official plugins are available:
+## Tecnologías Utilizadas
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Las siguientes tecnologías forman la base de desarrollo del proyecto:
 
-## Expanding the ESLint configuration
+- ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB) 
+- ![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white)
+- ![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
+- ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
+- ![NPM](https://img.shields.io/badge/NPM-%23CB3837.svg?style=for-the-badge&logo=npm&logoColor=white)
+- ![Jenkins](https://img.shields.io/badge/jenkins-%232C5263.svg?style=for-the-badge&logo=jenkins&logoColor=white)
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Características a implementar:
 
-- Configure the top-level `parserOptions` property like this:
+- Sistema de navegación y filtros para el catálogo de productos.
+- Visualización detallada de cada producto.
+- Gestión de pedidos y historial de compras.
+- Testeos aún por definir 
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+## Instalación
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+Para instalar y ejecutar este proyecto localmente, sigue los siguientes pasos:
+
+1. clone or fork this repository
+
+   ```sh
+   git clone https://github.com/vngerus/BurgerCat_DevOps_Projects.git
+   ```
+
+2. install dependencies
+
+   ```bash
+   npm install
+   ```
+
+3. run the project
+   ```bash
+   npm run dev
+   ```
+4. Open your browser and visit
+
+  [http://localhost:5173](http://localhost:5173) 😸
+
+**Contribuidores:**
+
+[![Contributors](https://contrib.rocks/image?repo=vngerus/BurgerCat_DevOps_Projects)](https://github.com/vngerus/BurgerCat_DevOps_Projects/graphs/contributors)
