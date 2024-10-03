@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { anvorguesacat } from '../assets';
+import { useCart } from '../context/cartContext';
 
 interface Burger {
     name: string;
@@ -13,6 +14,7 @@ const burgers: Burger[] = [
 ];
 
 const Burguer: React.FC = () => {
+    const { addToCart } = useCart();
     const [quantities, setQuantities] = useState<number[]>(new Array(burgers.length).fill(1));
 
     const handleQuantityChange = (index: number, delta: number) => {
@@ -75,6 +77,13 @@ const Burguer: React.FC = () => {
                                     </button>
                                 </div>
                             </div>
+
+                            <button
+                                className="mt-4 bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600"
+                                onClick={() => addToCart(burger.name, quantities[index])}
+                            >
+                                Añadir al carrito
+                            </button>
                         </div>
                     </div>
                 ))}
