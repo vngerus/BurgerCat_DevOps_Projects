@@ -7,6 +7,7 @@ import { CartProvider } from './context/cartContext';
 import { Cart, Footer, Loader, Menu, MenuCategories, Navbar, Orders, Sidebar } from './components';
 
 
+
 const App: React.FC = () => {
   const [hasEntered, setHasEntered] = useState(false);
   const handleEnter = () => {
