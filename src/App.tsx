@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Footer, Loader, Menu, MenuCategories, Navbar, Orders, Sidebar } from './components';
 import { Home, OrderStatus } from './pages';
 import PaymentPage from './payments/Payment';
+import { Burguer, Desert, IceCream, MisteryBox, Soda } from './Menu';
 
 const App: React.FC = () => {
   const [hasEntered, setHasEntered] = useState(false);
@@ -28,6 +29,12 @@ const App: React.FC = () => {
                 <Route path="/ordenes" element={<Orders />} />
                 <Route path="/pago" element={<PaymentPage />} />
                 <Route path="/estado-de-orden" element={<OrderStatus />} />
+
+                <Route path="/anvorguesa" element={<Burguer />} />
+                <Route path="/meowstres" element={<Desert />} />
+                <Route path="/catseosas" element={<Soda />} />
+                <Route path="/meowscream" element={<IceCream />} />
+                <Route path="/meowsterybox" element={<MisteryBox />} />
               </Routes>
 
               <Footer />

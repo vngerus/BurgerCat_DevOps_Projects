@@ -1,15 +1,22 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const categories = [
-    { name: 'Anvorguesas', icon: '🍔' },
-    { name: 'Catseosas', icon: '🥤' },
-    { name: 'Postremeow', icon: '🍰' },
-    { name: 'Meowscream', icon: '🍦' },
-    { name: 'Meowsterybox', icon: '🙀' },
+    { name: 'Anvorguesas', icon: '🍔', route: '/anvorguesa' },
+    { name: 'Catseosas', icon: '🥤', route: '/catseosas' },
+    { name: 'Postremeow', icon: '🍰', route: '/meowstres' },
+    { name: 'Meowscream', icon: '🍦', route: '/meowscream' },
+    { name: 'Meowsterybox', icon: '🙀', route: '/meowsterybox' },
 ];
 
 const MenuCategories: React.FC = () => {
     const [selectedCategory, setSelectedCategory] = useState<string>('Anvorguesas');
+    const navigate = useNavigate();
+
+    const handleCategoryClick = (categoryName: string, route: string) => {
+        setSelectedCategory(categoryName);
+        navigate(route);
+    };
 
     return (
         <div className="flex justify-center items-center flex-col mt-8 overflow-hidden">
@@ -18,7 +25,7 @@ const MenuCategories: React.FC = () => {
                 {categories.map((category, index) => (
                     <div
                         key={index}
-                        onClick={() => setSelectedCategory(category.name)}
+                        onClick={() => handleCategoryClick(category.name, category.route)}
                         className={`flex flex-col items-center p-4 sm:p-6 rounded-lg shadow-md sm:shadow-lg w-24 sm:w-32 cursor-pointer transition-all ${selectedCategory === category.name
                             ? 'bg-orangeBG orangeBG2'
                             : 'bg-white text-gray-800'
