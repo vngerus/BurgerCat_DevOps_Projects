@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { Footer, Loader, Menu, MenuCategories, Navbar, Orders, Sidebar } from './components';
+import { Cart, Footer, Loader, Menu, MenuCategories, Navbar, Orders, Sidebar } from './components';
 import { Home, OrderStatus } from './pages';
 import PaymentPage from './payments/Payment';
 import { Burguer, Desert, IceCream, MisteryBox, Soda } from './Menu';
@@ -26,9 +26,12 @@ const App: React.FC = () => {
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/menu" element={<Menu />} />
+                <Route path="/carrito" element={<Cart />} />
+
                 <Route path="/ordenes" element={<Orders />} />
-                <Route path="/pago" element={<PaymentPage />} />
                 <Route path="/estado-de-orden" element={<OrderStatus />} />
+
+                <Route path="/pago" element={<PaymentPage />} />
 
                 <Route path="/anvorguesa" element={<Burguer />} />
                 <Route path="/meowstres" element={<Desert />} />
