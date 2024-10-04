@@ -6,11 +6,10 @@ const Cart: React.FC = () => {
     const { cartItems, removeFromCart } = useCart();
     const navigate = useNavigate();
 
-    const totalAmount = cartItems.reduce((acc, item) => acc + item.quantity * 4990, 0); // Aquí puedes ajustar el precio de cada producto.
+    const totalAmount = cartItems.reduce((acc, item) => acc + item.quantity * (item.price || 0), 0);
 
     const handleCheckout = () => {
-        // Lógica para proceder al pago
-        navigate('/pago'); // Redirige a la página de pago
+        navigate('/pago');
     };
 
     return (
@@ -23,9 +22,13 @@ const Cart: React.FC = () => {
                     <ul className="space-y-4">
                         {cartItems.map((item, index) => (
                             <li key={index} className="flex justify-between items-center p-4 bg-white rounded-lg shadow-md">
-                                <div>
-                                    <h3 className="text-lg font-semibold">{item.name}</h3>
-                                    <p>Cantidad: {item.quantity}</p>
+                                <div className="flex items-center">
+                                    <img src={item.image} alt={item.name} className="w-16 h-16 object-cover rounded-lg mr-4" />
+                                    <div>
+                                        <h3 className="text-lg font-semibold">{item.name}</h3>
+                                        <p>Cantidad: {item.quantity}</p>
+                                        <p>Precio: ${item.price}</p>
+                                    </div>
                                 </div>
                                 <button
                                     className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600"

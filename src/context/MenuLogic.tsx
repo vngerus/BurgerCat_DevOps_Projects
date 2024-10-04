@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { useCart } from './cartContext';
+import { FaShoppingCart } from 'react-icons/fa';
 
 interface Product {
   name: string;
   image: string;
   description: string;
+  price: number;
 }
 
 interface MenuLogicProps {
@@ -32,7 +34,7 @@ const MenuLogic: React.FC<MenuLogicProps> = ({ title, products }) => {
           <div key={index} className="bg-white rounded-lg shadow-lg overflow-hidden min-h-[24rem] flex flex-col justify-between">
             <img src={product.image} alt={product.name} className="rounded-t-lg w-full object-cover h-48" />
             <div className="p-5 flex-grow">
-              <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 uppe">{product.name}</h5>
+              <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 uppercase">{product.name}</h5>
               <p className="mb-4 font-normal text-gray-700 line-clamp-3">{product.description}</p>
 
               <div className="flex justify-center">
@@ -62,10 +64,11 @@ const MenuLogic: React.FC<MenuLogicProps> = ({ title, products }) => {
 
               <div className="mt-4 flex justify-center">
                 <button
-                  className="bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600"
-                  onClick={() => addToCart(product.name, quantities[index])}
+                  className="bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 flex items-center space-x-2"
+                  onClick={() => addToCart(product.name, quantities[index], product.image, product.price)}
                 >
-                  Añadir al carrito
+                  <FaShoppingCart className="w-5 h-5 mr-2" />
+                  <span>${product.price}</span>
                 </button>
               </div>
             </div>

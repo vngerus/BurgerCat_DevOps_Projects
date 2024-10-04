@@ -3,11 +3,13 @@ import React, { createContext, useContext, useState } from 'react';
 interface CartItem {
   name: string;
   quantity: number;
+  image: string;
+  price: number;
 }
 
 interface CartContextType {
   cartItems: CartItem[];
-  addToCart: (name: string, quantity: number) => void;
+  addToCart: (name: string, quantity: number, image: string, price: number) => void;
   removeFromCart: (name: string) => void;
 }
 
@@ -21,11 +23,10 @@ export const useCart = () => {
   return context;
 };
 
-
 export const CartProvider: React.FC<React.PropsWithChildren<object>> = ({ children }) => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
 
-  const addToCart = (name: string, quantity: number) => {
+  const addToCart = (name: string, quantity: number, image: string, price: number) => {
     setCartItems(prevItems => {
       const existingItem = prevItems.find(item => item.name === name);
       if (existingItem) {
@@ -33,7 +34,7 @@ export const CartProvider: React.FC<React.PropsWithChildren<object>> = ({ childr
           item.name === name ? { ...item, quantity: item.quantity + quantity } : item
         );
       } else {
-        return [...prevItems, { name, quantity }];
+        return [...prevItems, { name, quantity, image, price }];
       }
     });
   };
