@@ -13,7 +13,7 @@ const Cart: React.FC = () => {
     };
 
     return (
-        <div className="p-4">
+        <div className="p-4 h-screen overflow-y-auto">
             <h2 className="text-2xl font-bold mb-4">Carrito de Compras</h2>
             {cartItems.length === 0 ? (
                 <p>No hay productos en el carrito.</p>
@@ -40,7 +40,7 @@ const Cart: React.FC = () => {
                         ))}
                     </ul>
 
-                    <div className="mt-6 text-right">
+                    <div className="mt-6 text-right mb-14">
                         <p className="text-xl font-bold">Total: ${totalAmount}</p>
                         <button
                             className="mt-4 bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600"
