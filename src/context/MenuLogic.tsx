@@ -27,13 +27,13 @@ const MenuLogic: React.FC<MenuLogicProps> = ({ title, products }) => {
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
       <h2 className="text-3xl font-bold mb-6">{title}</h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         {products.map((product, index) => (
-          <div key={index} className="bg-white rounded-lg shadow-lg overflow-hidden">
+          <div key={index} className="bg-white rounded-lg shadow-lg overflow-hidden min-h-[24rem] flex flex-col justify-between">
             <img src={product.image} alt={product.name} className="rounded-t-lg w-full object-cover h-48" />
-            <div className="p-5">
+            <div className="p-5 flex-grow">
               <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">{product.name}</h5>
-              <p className="mb-4 font-normal text-gray-700">{product.description}</p>
+              <p className="mb-4 font-normal text-gray-700 line-clamp-3">{product.description}</p>
 
               <div className="flex justify-center">
                 <div className="relative flex items-center max-w-[8rem]">
