@@ -1,0 +1,5 @@
+export { default as bebidacoke } from './bebida-coke.webp'
+export { default as bebidafanta } from './bebida-fanta.webp'
+export { default as bebidainca } from './bebida-inca.webp'
+export { default as bebidasprite } from './bebida-sprite.webp'
+export { default as bebidapepsi } from './bebida-pepsi.webp'

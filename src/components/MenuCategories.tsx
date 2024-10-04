@@ -19,7 +19,7 @@ const MenuCategories: React.FC = () => {
     };
 
     return (
-        <div className="flex justify-center items-center flex-col mt-8 overflow-hidden">
+        <div className="flex justify-center items-center flex-col mt-8 overflow-hidden bg-red-100">
             <h2 className="text-xl sm:text-2xl font-semibold mb-4 text-center">¡Revisa nuestro menú!</h2>
             <div className="flex justify-center space-x-4 overflow-x-auto max-w-4xl">
                 {categories.map((category, index) => (

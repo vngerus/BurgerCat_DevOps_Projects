@@ -4,7 +4,7 @@ import { Home, OrderStatus } from './pages';
 import PaymentPage from './payments/Payment';
 import { Burguer, Desert, IceCream, MisteryBox, Soda } from './Menu';
 import { CartProvider } from './context/cartContext';
-import { Cart, Footer, Loader, Menu, MenuCategories, Navbar, Orders, Sidebar } from './sections';
+import { Cart, Footer, Loader, Menu, MenuCategories, Navbar, Orders, Sidebar } from './components';
 
 
 
@@ -17,8 +17,8 @@ const App: React.FC = () => {
   return (
     <CartProvider>
       <Router>
-        <div className="w-full min-h-screen bg-gray-100">
-          <div className="max-w-[768px] mx-auto">
+        <div className="w-full min-h-screen">
+          <div className="max-w-[768px] mx-auto bg-red-100">
             {!hasEntered ? (
               <Loader onEnter={handleEnter} />
             ) : (

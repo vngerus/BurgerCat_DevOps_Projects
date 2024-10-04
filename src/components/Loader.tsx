@@ -9,8 +9,14 @@ const Loader: React.FC<LoaderProps> = ({ onEnter }) => {
     const [tableNumber, setTableNumber] = useState<number>(1);
 
     useEffect(() => {
-        const randomTable = Math.floor(Math.random() * 20) + 1;
-        setTableNumber(randomTable);
+        const savedTable = localStorage.getItem('tableNumber');
+        if (savedTable) {
+            setTableNumber(Number(savedTable));
+        } else {
+            const randomTable = Math.floor(Math.random() * 30) + 1;
+            setTableNumber(randomTable);
+            localStorage.setItem('tableNumber', String(randomTable));
+        }
     }, []);
 
     return (

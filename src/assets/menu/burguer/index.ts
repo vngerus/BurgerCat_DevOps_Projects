@@ -1,0 +1,5 @@
+export { default as burguerclasico } from './clasico.jpg'
+export { default as burguerdoblequeso } from './doblequeso.jpg'
+export { default as burgueritaliano } from './italiano.jpg'
+export { default as burguersimple } from './simple.jpg'
+export { default as burguerteriyakie } from './teriyaki.jpg'
