@@ -5,9 +5,6 @@ import PaymentPage from './payments/Payment';
 import { Burguer, Desert, IceCream, MisteryBox, Soda } from './Menu';
 import { CartProvider } from './context/cartContext';
 import { Cart, Footer, Loader, Menu, MenuCategories, Navbar, Orders, Sidebar } from './components';
-import { Cart, Footer, Loader, Menu, MenuCategories, Navbar, Orders, Sidebar } from './components';
-import Dashboard from './admin/Dashboard';
-import LoginAdmin from './admin/Login';
 
 
 
