@@ -1,16 +1,13 @@
 import React, { useState } from 'react';
 
-
-
 interface LoginFormProps {
-  user?: string
-  password?: string
+  user?: string;
+  password?: string;
 }
 
-const LoginAdmin = ({ }: LoginFormProps) => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-
+const LoginAdmin: React.FC<LoginFormProps> = ({ user, password }) => {
+  const [username, setUsername] = useState<string>(user || '');
+  const [passwordValue, setPasswordValue] = useState<string>(password || '');
 
   return (
     <div className="flex justify-center items-center h-screen bg-gray-100">
@@ -18,16 +15,16 @@ const LoginAdmin = ({ }: LoginFormProps) => {
         <input
           type="text"
           placeholder="Username"
-          className="w-full p-2 border rounded-md"
+          className="w-full p-2 border rounded-md mb-4"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
         <input
-          type="text"
-          placeholder="Username"
-          className="w-full p-2 border rounded-md"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          type="password"
+          placeholder="Password"
+          className="w-full p-2 border rounded-md mb-4"
+          value={passwordValue}
+          onChange={(e) => setPasswordValue(e.target.value)}
         />
         <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
           Enviar
@@ -37,5 +34,5 @@ const LoginAdmin = ({ }: LoginFormProps) => {
   );
 };
 
-
 export default LoginAdmin;
+
