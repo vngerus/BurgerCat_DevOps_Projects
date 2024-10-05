@@ -2,14 +2,14 @@ import { initializeApp } from 'firebase/app';
 import { getDatabase } from 'firebase/database';
 
 const firebaseConfig = {
-    apiKey: "AIzaSyAYqAOrWmToFQ4d5O0iq7BikehhDhQ2wmI",
-    authDomain: "burguercat-5d2ae.firebaseapp.com",
-    databaseURL: "https://burguercat-5d2ae-default-rtdb.firebaseio.com/",  
-    projectId: "burguercat-5d2ae",
-    storageBucket: "burguercat-5d2ae.appspot.com",
-    messagingSenderId: "232988392657",
-    appId: "1:232988392657:web:bab0eb5ba3e9b1580f99f0",
-    measurementId: "G-CKE38YPBN5"
+    apiKey: import.meta.env.VITE_API_KEY,
+    authDomain: import.meta.env.VITE_AUTH_DOMAIN,
+    databaseURL: import.meta.env.VITE_DATABASE_URL,
+    projectId: import.meta.env.VITE_PROJECT_ID,
+    storageBucket: import.meta.env.VITE_STORAGE_BUCKET,
+    messagingSenderId: import.meta.env.VITE_MESSAGING_SENDER_ID,
+    appId: import.meta.env.VITE_APP_ID,
+    measurementId: import.meta.env.VITE_MEASUREMENT_ID,
 };
 
 const app = initializeApp(firebaseConfig);
