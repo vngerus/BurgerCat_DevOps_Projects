@@ -39,10 +39,10 @@ const PaymentPage: React.FC = () => {
     };
 
     return (
-        <div className="flex flex-col items-center justify-center h-screen p-4 bg-orange-200">
-            <h1 className="text-3xl font-bold mb-6">Procesar Pago</h1>
+        <div className="flex flex-col items-center justify-start min-h-[70vh] p-4 bg-orange-200">
+            <h1 className="text-2xl font-bold mb-4 text-center mt-12">Procesar Pago</h1>
 
-            <div className="bg-white shadow-md rounded-lg p-6 mb-6 w-full max-w-lg">
+            <div className="bg-white shadow-md rounded-lg p-6 mb-4 w-full max-w-lg">
                 <h2 className="text-2xl font-semibold mb-4">Resumen del Pedido</h2>
 
                 {tableNumber && (
@@ -60,7 +60,7 @@ const PaymentPage: React.FC = () => {
             </div>
 
             {paymentSuccess && (
-                <div className="bg-green-100 text-green-800 p-4 rounded-lg mt-4 w-full max-w-lg text-center flex items-center justify-center">
+                <div className="bg-green-100 text-green-800 p-4 rounded-lg mt-2 w-full max-w-lg text-center flex items-center justify-center">
                     <FaCheckCircle className="mr-2" />
                     <span>Pago completado con éxito, redirigiendo...</span>
                 </div>

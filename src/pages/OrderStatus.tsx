@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { ref, onValue } from 'firebase/database';
 import { db } from '../firebase/firebaseConfig';
 import { FaCheckCircle, FaTimesCircle, FaSpinner, FaClock } from 'react-icons/fa';
+import { sadcat } from '../assets'; // Asegúrate de que la ruta a la imagen es correcta
 
 interface Order {
     id: string;
@@ -69,9 +70,9 @@ const OrderStatus: React.FC<{ userId: string }> = ({ userId }) => {
                         <span className="text-yellow-500 flex items-center">
                             <FaSpinner className="mr-2 animate-spin" /> Preparando...
                         </span>
-                        <div className="w-full bg-gray-200 h-2 mt-2">
+                        <div className="w-full bg-gray-200 h-2 mt-2 rounded-full">
                             <div
-                                className="bg-yellow-500 h-2"
+                                className="bg-yellow-500 h-2 rounded-full"
                                 style={{ width: `${progress}%`, transition: 'width 1s' }}
                             />
                         </div>
@@ -96,27 +97,30 @@ const OrderStatus: React.FC<{ userId: string }> = ({ userId }) => {
     };
 
     return (
-        <div className="p-6">
-            <h1 className="text-2xl font-bold mb-4">Estado de tus Pedidos</h1>
+        <div className="flex flex-col items-center justify-start min-h-screen bg-orange-200 p-4">
+            <h1 className="text-2xl font-bold mb-4 text-center mt-12">Estado de tus Pedidos</h1>
             {loading ? (
-                <div className="flex justify-center items-center">
+                <div className="flex flex-col items-center justify-center">
                     <FaSpinner className="animate-spin text-4xl text-gray-500" />
                     <span className="ml-2 text-xl">Cargando pedidos...</span>
                 </div>
             ) : orders.length > 0 ? (
-                <ul className="space-y-4">
+                <ul className="space-y-4 w-full max-w-3xl">
                     {orders.map(order => (
-                        <li key={order.id} className="bg-white p-4 rounded-lg shadow-lg flex justify-between items-center transition-all">
+                        <li key={order.id} className="bg-white p-6 rounded-lg shadow-lg flex justify-between items-start transition-all">
                             <div>
-                                <h3 className="text-lg font-semibold">Pedido #{order.id}</h3>
-                                <p>Total: ${order.total}</p>
-                                <p>Estado: {getOrderStatus(order)}</p>
+                                <h3 className="text-lg font-semibold mb-2">Pedido #{order.id}</h3>
+                                <p className="text-md mb-1">Total: ${order.total}</p>
+                                <p className="text-md">Estado: {getOrderStatus(order)}</p>
                             </div>
                         </li>
                     ))}
                 </ul>
             ) : (
-                <p className="text-center text-gray-500">No hay pedidos.</p>
+                <div className="flex flex-col items-center justify-center">
+                    <p className="text-center text-gray-500 mb-4">No hay pedidos.</p>
+                    <img src={sadcat} alt="Gatito triste" className="w-48 h-48 object-contain" />
+                </div>
             )}
         </div>
     );

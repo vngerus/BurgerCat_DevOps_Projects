@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useCart } from '../context/cartContext';
 import { db } from '../firebase/firebaseConfig';
 import { calculatePreparationTime } from '../logic/TimeCalculator';
+import { sadcat } from '../assets';
 
 const Cart: React.FC = () => {
     const { cartItems, removeFromCart } = useCart();
@@ -14,6 +15,7 @@ const Cart: React.FC = () => {
     const [loading, setLoading] = useState<boolean>(false);
 
     const totalAmount = cartItems.reduce((acc, item) => acc + item.quantity * (item.price || 0), 0);
+
     useEffect(() => {
         setPreparationTime(calculatePreparationTime(cartItems));
     }, [cartItems]);
@@ -56,9 +58,12 @@ const Cart: React.FC = () => {
 
     return (
         <div className="p-4 h-screen overflow-y-auto">
-            <h2 className="text-2xl font-bold mb-4">Carrito de Compras</h2>
+            <h2 className="text-2xl font-bold mb-4 text-center mt-12">Carrito de Compras</h2>
             {cartItems.length === 0 ? (
-                <p>No hay productos en el carrito.</p>
+                <div className="flex flex-col items-center justify-center">
+                    <p className="text-center">No hay productos en el carrito.</p>
+                    <img src={sadcat} alt="Gatito triste" className="w-48 h-48 object-contain mt-4" />
+                </div>
             ) : (
                 <>
                     <ul className="space-y-4">

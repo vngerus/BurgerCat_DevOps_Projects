@@ -1,0 +1,1 @@
+export { default as sadcat } from './sadcat.jpg'
