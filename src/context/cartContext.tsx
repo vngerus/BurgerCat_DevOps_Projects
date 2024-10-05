@@ -5,11 +5,12 @@ interface CartItem {
   quantity: number;
   image: string;
   price: number;
+  category: string;
 }
 
 interface CartContextType {
   cartItems: CartItem[];
-  addToCart: (name: string, quantity: number, image: string, price: number) => void;
+  addToCart: (name: string, quantity: number, image: string, price: number, category: string) => void;  // Añadido 'category' como parámetro
   removeFromCart: (name: string) => void;
 }
 
@@ -26,15 +27,16 @@ export const useCart = () => {
 export const CartProvider: React.FC<React.PropsWithChildren<object>> = ({ children }) => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
 
-  const addToCart = (name: string, quantity: number, image: string, price: number) => {
+  const addToCart = (name: string, quantity: number, image: string, price: number, category: string) => {
     setCartItems(prevItems => {
       const existingItem = prevItems.find(item => item.name === name);
+
       if (existingItem) {
         return prevItems.map(item =>
           item.name === name ? { ...item, quantity: item.quantity + quantity } : item
         );
       } else {
-        return [...prevItems, { name, quantity, image, price }];
+        return [...prevItems, { name, quantity, image, price, category }];
       }
     });
   };
