@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Home, OrderStatus } from './pages';
-import PaymentPage from './payments/Payment';
+import PaymentPage from './payments/PaymentPage';
 import { Burguer, Desert, IceCream, MisteryBox, Soda } from './Menu';
 import { CartProvider } from './context/cartContext';
 import { Cart, Loader, Menu, MenuCategories, Navbar, Orders, Sidebar } from './components';

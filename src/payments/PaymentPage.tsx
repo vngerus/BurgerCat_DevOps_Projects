@@ -1,29 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import { getDatabase, ref, update } from 'firebase/database';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { FaCreditCard, FaCheckCircle } from 'react-icons/fa';
 
 const PaymentPage: React.FC = () => {
     const navigate = useNavigate();
-    const location = useLocation();
-    const { orderId, totalAmount } = location.state || {};
     const [loading, setLoading] = useState(false);
     const [paymentSuccess, setPaymentSuccess] = useState(false);
-    const [tableNumber, setTableNumber] = useState<number | null>(null);
+    const [tableNumber, setTableNumber] = useState<string | null>(null);
 
     useEffect(() => {
         const savedTable = localStorage.getItem('tableNumber');
         if (savedTable) {
-            setTableNumber(Number(savedTable));
+            setTableNumber(savedTable);
         }
     }, []);
 
     const handlePayment = async () => {
-        setLoading(true);
+        if (!tableNumber) return;
 
+        setLoading(true);
         try {
             const database = getDatabase();
-            const orderRef = ref(database, 'orders/' + orderId);
+            const orderRef = ref(database, 'orders/' + tableNumber);
 
             await update(orderRef, {
                 status: 'completed',
@@ -39,10 +38,6 @@ const PaymentPage: React.FC = () => {
         }
     };
 
-    if (!orderId || totalAmount === undefined) {
-        return <div>Error: Faltan detalles del pedido.</div>;
-    }
-
     return (
         <div className="flex flex-col items-center justify-center h-screen p-4 bg-orange-200">
             <h1 className="text-3xl font-bold mb-6">Procesar Pago</h1>
@@ -50,12 +45,9 @@ const PaymentPage: React.FC = () => {
             <div className="bg-white shadow-md rounded-lg p-6 mb-6 w-full max-w-lg">
                 <h2 className="text-2xl font-semibold mb-4">Resumen del Pedido</h2>
 
-                {tableNumber !== null && (
+                {tableNumber && (
                     <p className="text-lg mb-2">Número de Mesa: <strong>{tableNumber}</strong></p>
                 )}
-
-                <p className="text-lg mb-2">ID del Pedido: <strong>{orderId}</strong></p>
-                <p className="text-lg mb-4">Total a pagar: <strong>${totalAmount}</strong></p>
 
                 <button
                     onClick={handlePayment}

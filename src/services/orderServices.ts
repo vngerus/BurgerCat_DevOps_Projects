@@ -17,9 +17,18 @@ interface OrderData {
     status: string;
     items: { [key: string]: OrderItem };
 }
+const getTableNumber = (): string | null => {
+    return localStorage.getItem('tableNumber');
+};
 
-export const addOrderToDatabase = (orderId: string, orderData: OrderData) => {
-    set(ref(database, 'orders/' + orderId), orderData)
+export const addOrderToDatabase = (orderData: OrderData) => {
+    const tableNumber = getTableNumber();
+    if (!tableNumber) {
+        console.error('No se ha encontrado el número de mesa.');
+        return;
+    }
+
+    set(ref(database, 'orders/' + tableNumber), orderData)
         .then(() => {
             console.log('Pedido añadido exitosamente.');
         })

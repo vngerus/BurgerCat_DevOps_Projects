@@ -9,23 +9,26 @@ const Cart: React.FC = () => {
     const navigate = useNavigate();
 
     const totalAmount = cartItems.reduce((acc, item) => acc + item.quantity * (item.price || 0), 0);
+    const getTableNumber = (): string | null => {
+        return localStorage.getItem('tableNumber');
+    };
 
     const handleCheckout = async () => {
-        const orderId = Date.now().toString();
+        const tableNumber = getTableNumber();
+        if (!tableNumber) {
+            console.error('No se encontró el número de mesa.');
+            return;
+        }
+
         try {
-            const orderRef = ref(db, 'orders/' + orderId);
+            const orderRef = ref(db, 'orders/' + tableNumber);
             await set(orderRef, {
                 items: cartItems,
                 total: totalAmount,
                 status: 'pending',
                 timestamp: new Date().toISOString(),
             });
-            navigate('/pago', {
-                state: {
-                    orderId,
-                    totalAmount
-                }
-            });
+            navigate('/pago');
         } catch (error) {
             console.error('Error al crear pedido: ', error);
         }
