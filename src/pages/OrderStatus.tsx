@@ -1,10 +1,6 @@
 import { useEffect, useState } from 'react';
-import { getDatabase, ref, onValue } from 'firebase/database';
-import { initializeApp } from 'firebase/app';
-import { firebaseConfig } from '../firebase/firebaseConfig';
-
-const app = initializeApp(firebaseConfig);
-const database = getDatabase(app);
+import { ref, onValue } from 'firebase/database';
+import { db } from '../firebase/firebaseConfig';
 
 interface Order {
     id: string;
@@ -17,19 +13,27 @@ const OrderStatus: React.FC<{ userId: string }> = ({ userId }) => {
     const [orders, setOrders] = useState<Order[]>([]);
 
     useEffect(() => {
-        const ordersRef = ref(database, 'orders');
-        onValue(ordersRef, (snapshot) => {
+        const ordersRef = ref(db, 'orders');
+        const unsubscribe = onValue(ordersRef, (snapshot) => {
             const data = snapshot.val();
             if (data) {
                 const ordersData = Object.keys(data).map(key => ({
                     id: key,
                     ...data[key]
                 }));
-                const userOrders = ordersData.filter(order => order.userId === userId);
+
+                const userOrders = ordersData.filter(order => {
+                    console.log(order);
+                    return order.userId === userId;
+                });
+
                 setOrders(userOrders);
             }
         });
+
+        return () => unsubscribe();
     }, [userId]);
+
 
     return (
         <div>

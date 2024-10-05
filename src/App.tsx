@@ -5,11 +5,12 @@ import PaymentPage from './payments/PaymentPage';
 import { Burguer, Desert, IceCream, MisteryBox, Soda } from './Menu';
 import { CartProvider } from './context/cartContext';
 import { Cart, Loader, Menu, MenuCategories, Navbar, Orders, Sidebar } from './components';
-
-
+import { useAuth } from './context/authContext';
 
 const App: React.FC = () => {
   const [hasEntered, setHasEntered] = useState(false);
+  const { userId } = useAuth();
+
   const handleEnter = () => {
     setHasEntered(true);
   };
@@ -32,7 +33,7 @@ const App: React.FC = () => {
                   <Route path="/menu" element={<Menu />} />
                   <Route path="/carrito" element={<Cart />} />
                   <Route path="/ordenes" element={<Orders />} />
-                  <Route path="/estado-de-orden" element={<OrderStatus />} />
+                  <Route path="/estado-de-orden" element={<OrderStatus userId={userId} />} />
                   <Route path="/pago" element={<PaymentPage />} />
                   <Route path="/anvorguesa" element={<Burguer />} />
                   <Route path="/meowstres" element={<Desert />} />
