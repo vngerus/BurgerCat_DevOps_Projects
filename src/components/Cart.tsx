@@ -1,30 +1,27 @@
-import React, { useState, useEffect } from 'react';
-import { useCart } from '../context/cartContext';
-import { useNavigate } from 'react-router-dom';
 import { ref, set } from 'firebase/database';
+import { useAuth } from '../context/authContext';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useCart } from '../context/cartContext';
 import { db } from '../firebase/firebaseConfig';
 import { calculatePreparationTime } from '../logic/TimeCalculator';
 
 const Cart: React.FC = () => {
-    const { cartItems, removeFromCart } = useCart();  // Traemos los items del carrito desde el contexto
+    const { cartItems, removeFromCart } = useCart();
+    const { userId } = useAuth();
     const navigate = useNavigate();
     const [preparationTime, setPreparationTime] = useState<number>(0);
-    const [loading, setLoading] = useState<boolean>(false);  // Estado de carga
+    const [loading, setLoading] = useState<boolean>(false);
 
-    // Calculamos el total de la compra
     const totalAmount = cartItems.reduce((acc, item) => acc + item.quantity * (item.price || 0), 0);
-
-    // Actualizamos el tiempo de preparación cuando cambia el carrito
     useEffect(() => {
-        setPreparationTime(calculatePreparationTime(cartItems));  // Calculamos el tiempo de preparación con base en los productos del carrito
+        setPreparationTime(calculatePreparationTime(cartItems));
     }, [cartItems]);
 
-    // Obtenemos el número de mesa desde el localStorage
     const getTableNumber = (): string | null => {
         return localStorage.getItem('tableNumber');
     };
 
-    // Función para manejar el proceso de checkout
     const handleCheckout = async () => {
         const tableNumber = getTableNumber();
         if (!tableNumber) {
@@ -32,22 +29,28 @@ const Cart: React.FC = () => {
             return;
         }
 
-        setLoading(true);  // Indicador de carga
+        if (!userId) {
+            console.error('No se encontró el userId.');
+            return;
+        }
+
+        setLoading(true);
 
         try {
-            const orderRef = ref(db, 'orders/' + tableNumber);  // Guardamos la orden en la base de datos Firebase
+            const orderRef = ref(db, 'orders/' + tableNumber);
             await set(orderRef, {
                 items: cartItems,
                 total: totalAmount,
                 preparationTime: preparationTime,
                 status: 'pending',
                 timestamp: new Date().toISOString(),
+                userId: userId
             });
-            navigate('/pago');  // Navegamos a la página de pago
+            navigate('/pago');
         } catch (error) {
             console.error('Error al crear pedido: ', error);
         } finally {
-            setLoading(false);  // Terminamos el estado de carga
+            setLoading(false);
         }
     };
 
@@ -85,7 +88,7 @@ const Cart: React.FC = () => {
                         <button
                             className={`mt-4 bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
                             onClick={handleCheckout}
-                            disabled={loading}  // Deshabilitamos el botón mientras carga
+                            disabled={loading}
                         >
                             {loading ? 'Procesando...' : 'Proceder al Pago'}
                         </button>
