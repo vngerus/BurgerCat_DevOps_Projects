@@ -1,5 +1,5 @@
 import React from 'react';
-import MenuLogic from '../context/MenuLogic';
+import MenuLogic from '../logic/MenuLogic';
 import { desert } from '../data';
 
 const Desert: React.FC = () => {

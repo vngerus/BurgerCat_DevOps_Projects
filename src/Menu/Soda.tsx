@@ -1,5 +1,5 @@
 import React from 'react';
-import MenuLogic from '../context/MenuLogic';
+import MenuLogic from '../logic/MenuLogic';
 import { soda } from '../data';
 
 const Soda: React.FC = () => {
