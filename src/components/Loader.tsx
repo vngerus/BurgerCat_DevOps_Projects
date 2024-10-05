@@ -10,12 +10,16 @@ const Loader: React.FC<LoaderProps> = ({ onEnter }) => {
 
     useEffect(() => {
         const savedTable = localStorage.getItem('tableNumber');
-        if (savedTable) {
+        const savedTimestamp = localStorage.getItem('tableTimestamp');
+        const now = new Date().getTime();
+
+        if (savedTable && savedTimestamp && now - parseInt(savedTimestamp) < 3600000) {
             setTableNumber(Number(savedTable));
         } else {
             const randomTable = Math.floor(Math.random() * 30) + 1;
             setTableNumber(randomTable);
             localStorage.setItem('tableNumber', String(randomTable));
+            localStorage.setItem('tableTimestamp', String(now));
         }
     }, []);
 

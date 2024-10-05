@@ -1,6 +1,8 @@
 import React from 'react';
 import { useCart } from '../context/cartContext';
 import { useNavigate } from 'react-router-dom';
+import { ref, set } from 'firebase/database';
+import { db } from '../firebase/firebaseConfig';
 
 const Cart: React.FC = () => {
     const { cartItems, removeFromCart } = useCart();
@@ -8,8 +10,25 @@ const Cart: React.FC = () => {
 
     const totalAmount = cartItems.reduce((acc, item) => acc + item.quantity * (item.price || 0), 0);
 
-    const handleCheckout = () => {
-        navigate('/pago');
+    const handleCheckout = async () => {
+        const orderId = Date.now().toString();
+        try {
+            const orderRef = ref(db, 'orders/' + orderId);
+            await set(orderRef, {
+                items: cartItems,
+                total: totalAmount,
+                status: 'pending',
+                timestamp: new Date().toISOString(),
+            });
+            navigate('/pago', {
+                state: {
+                    orderId,
+                    totalAmount
+                }
+            });
+        } catch (error) {
+            console.error('Error al crear pedido: ', error);
+        }
     };
 
     return (
