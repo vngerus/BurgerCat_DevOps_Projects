@@ -1,5 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react';
+import { ref, onValue } from 'firebase/database';
 import { deleteIcon, editIcon, viewIcon } from '../../../assets/icons';
+import { db } from '../../../firebase/firebaseConfig'; 
 
 interface CartItem {
     name: string;
@@ -10,19 +12,37 @@ interface CartItem {
   }
   
   interface Order {
-    orderId: string;
+    id: number;
     items: CartItem[];
-    totalAmount: number;
+    preparationTime: number;
     status: string;
-    date: string;
+    timestamp: string;
+    total: number;
     userId: string;
   }
 
-const OrdersTable = () => {
-    const [ordersData, setOrdersData] = useState<Order[]>([]);
+const OrdersTable: React.FC = () => {
+    const [orders, setOrders] = useState<Order[]>([]);
+
+    useEffect(() => {
+        const ordersRef = ref(db, 'orders'); 
+
+        onValue(ordersRef, (snapshot) => {
+          const data = snapshot.val();
+          if (data) {
+            const ordersList = Object.keys(data).map((key) => ({
+              id: key, 
+              ...data[key],
+            }));
+            setOrders(ordersList);
+            console.log(orders)
+          }
+        });
+      }, []);
+  
+
   return (
     
-
 <div className="overflow-x-auto shadow-md sm:rounded-lg">
     <div className='flex justify-center'>
 
@@ -36,16 +56,16 @@ const OrdersTable = () => {
                     </div>
                 </th>
                 <th scope="col" className="px-6 py-3">
-                    Orden
+                    Mesa
                 </th>
                 <th scope="col" className="px-6 py-3">
-                    Productos
+                    Orden
                 </th>
                 <th scope="col" className="px-6 py-3">
                     Tiempo preparacion
                 </th>
                 <th scope="col" className="px-6 py-3">
-                    Mesa
+                    Estado
                 </th>
                 <th scope="col" className="px-6 py-3">
                     Acciones
@@ -53,34 +73,52 @@ const OrdersTable = () => {
             </tr>
         </thead>
         <tbody>
-            <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                <td className="w-4 p-4">
-                    <div className="flex items-center">
-                        <input id="checkbox-table-search-1" type="checkbox" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
-                        <label htmlFor="checkbox-table-search-1" className="sr-only">checkbox</label>
-                    </div>
-                </td>
-                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    Orden 1
-                </th>
-                <td className="px-6 py-4">
-                    Anvorguesa
-                </td>
-                <td className="px-6 py-4">
-                    15 minutos
-                </td>
-                <td className="px-6 py-4">
-                    $2999
-                </td>
-                <td className="px-6 py-4 flex">
-                    
-                    <a href="#" className="font-medium text-gray-500 dark:text-gray-500 hover:underline"><img className="font-medium text-gray-500 dark:text-gray-500" src={viewIcon} alt="" /></a>
-                    <a href="#" className="font-medium text-orange-300 dark:text-orange-300 hover:underline"><img src={editIcon} alt="" /></a>
-                    <a href="#" className="font-medium text-red-500 dark:text-red-500 hover:underline"><img src={deleteIcon} alt="" /></a>
-                </td>
-            </tr>
-
-        </tbody>
+  {orders.map((o: Order) => {
+    return (
+      <tr  className={`bg-white border-b hover:bg-gray-600 ${
+        o.status === 'completed' ? 'bg-green-600' : ''
+      }`} key={o.id}>
+        <td className="w-4 p-4" >
+          <div className="flex items-center">
+            <input id={`checkbox-table-search-${o.id}`} 
+            type="checkbox" 
+            className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" 
+            checked={o.status === 'completed'}
+            readOnly/>
+            <label htmlFor={`checkbox-table-search-${o.id}`} className="sr-only">checkbox</label>
+          </div>
+        </td>
+        <th scope="row" className="px-6 py-4 font-medium whitespace-nowrap text-white">
+          {o.id}
+        </th>
+        <td className="px-6 py-4 font-medium whitespace-nowrap text-white">
+        {o.items.map((p: any, index: number) => (
+          <div key={index}>
+            <p>{p.name} - {p.quantity} </p>
+          </div>
+        ))}
+      </td>
+        <td className="px-6 py-4 font-medium whitespace-nowrap text-white">
+          {o.preparationTime}
+        </td>
+        <td className="px-6 py-4 font-medium whitespace-nowrap text-white">
+          {o.status}
+        </td>
+        <td className="px-6 py-4 flex">
+          <a href="#" className="font-medium text-gray-500 dark:text-gray-500 hover:underline">
+            <img className="font-medium text-gray-500 dark:text-gray-500" src={viewIcon} alt="" />
+          </a>
+          <a href="#" className="font-medium text-orange-300 dark:text-orange-300 hover:underline">
+            <img src={editIcon} alt="" />
+          </a>
+          <a href="#" className="font-medium text-red-500 dark:text-red-500 hover:underline">
+            <img src={deleteIcon} alt="" />
+          </a>
+        </td>
+      </tr>
+    );
+  })}
+</tbody>
     </table>
     </div>
     <div className='fixed left-96 bottom-11 ml-5 mr-5'>
