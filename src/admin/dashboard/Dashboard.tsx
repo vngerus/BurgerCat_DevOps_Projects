@@ -6,7 +6,7 @@ import OrdersTable from './components/OrdersTable';
 const Dashboard: React.FC = () => {
   return (
     <div className="h-screen bg-gray-100">
-     <Navbar/>
+     <Navbar login={true}/>
      <OrdersTable/>
   </div>
   );

@@ -1,5 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import Navbar from '../shared/Navbar';
+
+
+
 
 interface LoginFormProps {
   user?: string;
@@ -11,13 +16,25 @@ const LoginAdmin: React.FC<LoginFormProps> = ({ user, password }) => {
   const [passwordValue, setPasswordValue] = useState<string>(password || '');
   const navigate = useNavigate();
 
+
 const loginAdmin = () =>{
-return navigate('/dashboard')
+  const auth = getAuth();
+signInWithEmailAndPassword(auth, username, passwordValue)
+  .then((userCredential) => {
+    const user = userCredential.user;
+    navigate('/dashboard')
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+  });
  
 
 }
 
   return (
+    <>
+    <Navbar login={false}/>
     <div className="flex justify-center items-center h-screen bg-gray-100">
       <div className="bg-white p-6 rounded-lg shadow-md">
         <input
@@ -39,6 +56,7 @@ return navigate('/dashboard')
         </button>
       </div>
     </div>
+    </>
   );
 };
 
