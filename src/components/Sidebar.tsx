@@ -20,7 +20,7 @@ const Sidebar: React.FC = () => {
                <FaHome className="w-6 h-6 mx-auto" />
                <span className="text-xs hidden">Inicio</span>
             </a>
-            <a onClick={() => navigate('/menu')} className="text-center cursor-pointer">
+            <a onClick={() => navigate('/admin')} className="text-center cursor-pointer">
                <FaBars className="w-6 h-6 mx-auto" />
                <span className="text-xs hidden">Menú</span>
             </a>
