@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Home, OrderStatus } from './pages';
-import PaymentPage from './payments/PaymentPage';
 import { burgers, desert, icecream, misterybox, soda } from './data';
 import { CartProvider } from './context/cartContext';
 import { Cart, Loader, Menu, MenuCategories, Navbar, Orders, Sidebar } from './components';
@@ -9,6 +8,7 @@ import { useAuth } from './context/authContext';
 import Login from './admin/login/Login';
 import Dashboard from './admin/dashboard/Dashboard';
 import { Burguer, Desert, Soda, IceCream, MisteryBox } from './Menu';
+import { PaymentPage } from './payments';
 
 const MainLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
