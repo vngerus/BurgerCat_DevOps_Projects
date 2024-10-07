@@ -10,7 +10,7 @@ interface CartItem {
 
 interface CartContextType {
   cartItems: CartItem[];
-  addToCart: (name: string, quantity: number, image: string, price: number, category: string) => void;  // Añadido 'category' como parámetro
+  addToCart: (name: string, quantity: number, image: string, price: number, category: string) => void;
   removeFromCart: (name: string) => void;
 }
 

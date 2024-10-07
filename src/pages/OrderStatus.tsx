@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { ref, onValue } from 'firebase/database';
 import { db } from '../firebase/firebaseConfig';
 import { FaCheckCircle, FaTimesCircle, FaSpinner, FaClock } from 'react-icons/fa';
-import { sadcat } from '../assets'; // Asegúrate de que la ruta a la imagen es correcta
+import { sadcat } from '../assets';
 
 interface Order {
     id: string;
