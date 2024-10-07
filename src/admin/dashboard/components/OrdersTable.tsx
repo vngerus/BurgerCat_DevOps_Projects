@@ -53,11 +53,10 @@ const OrdersTable: React.FC = () => {
     const orderRef = ref(db, `orders/${orderId}`);
     remove(orderRef)
       .then(() => {
-        alert('Pedido eliminado correctamente.');
-        setShowDeleteModal(false);
+        setShowDeleteModal(false); // Removemos la alerta y solo cerramos el modal
       })
       .catch((error) => {
-        alert('Error al eliminar el pedido: ' + error.message);
+        console.error('Error al eliminar el pedido: ' + error.message); // O puedes manejar el error de otra manera si lo prefieres
       });
   };
 
@@ -66,11 +65,10 @@ const OrdersTable: React.FC = () => {
       const orderRef = ref(db, `orders/${selectedOrder.id}`);
       update(orderRef, updatedData)
         .then(() => {
-          alert('Pedido actualizado correctamente.');
-          setShowEditModal(false);
+          setShowEditModal(false); // Removemos la alerta y solo cerramos el modal
         })
         .catch((error) => {
-          alert('Error al guardar el pedido: ' + error.message);
+          console.error('Error al guardar el pedido: ' + error.message); // Manejo de errores sin alertas
         });
     }
   };
