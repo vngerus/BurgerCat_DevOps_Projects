@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Home, OrderStatus } from './pages';
 import PaymentPage from './payments/PaymentPage';
-import { Burguer, Desert, IceCream, MisteryBox, Soda } from './Menu';
+import { burgers, desert, icecream, misterybox, soda } from './data';
 import { CartProvider } from './context/cartContext';
 import { Cart, Loader, Menu, MenuCategories, Navbar, Orders, Sidebar } from './components';
 import { useAuth } from './context/authContext';
 import Login from './admin/login/Login';
 import Dashboard from './admin/dashboard/Dashboard';
+import { Burguer, Desert, Soda, IceCream, MisteryBox } from './Menu';
 
 const MainLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
@@ -36,130 +37,130 @@ const App: React.FC = () => {
     setHasEntered(true);
   };
 
+  const allProducts = [...burgers, ...desert, ...icecream, ...misterybox, ...soda];
+
   return (
     <CartProvider>
-    <Router>
-      <div className="w-full min-h-screen">
-        <div className="max-w-[768px] mx-auto bg-orange-200">
-          <Routes>
-            {/* Rutas para Admin y Dashboard que no dependen de hasEntered */}
-            <Route
-              path="/admin"
-              element={
-                <AdminLayout>
-                  <Login />
-                </AdminLayout>
-              }
-            />
-            <Route
-              path="/dashboard"
-              element={
-                <AdminLayout>
-                  <Dashboard />
-                </AdminLayout>
-              }
-            />
+      <Router>
+        <div className="w-full min-h-screen">
+          <div className="max-w-[768px] mx-auto bg-orange-200">
+            <Routes>
+              <Route
+                path="/admin"
+                element={
+                  <AdminLayout>
+                    <Login />
+                  </AdminLayout>
+                }
+              />
+              <Route
+                path="/dashboard"
+                element={
+                  <AdminLayout>
+                    <Dashboard />
+                  </AdminLayout>
+                }
+              />
 
-            {/* Verificación de Loader para rutas no administrativas */}
-            {hasEntered ? (
-              <>
-                <Route
-                  path="/"
-                  element={
-                    <MainLayout>
-                      <Home />
-                    </MainLayout>
-                  }
-                />
-                <Route
-                  path="/menu"
-                  element={
-                    <MainLayout>
-                      <Menu />
-                    </MainLayout>
-                  }
-                />
-                <Route
-                  path="/carrito"
-                  element={
-                    <MainLayout>
-                      <Cart />
-                    </MainLayout>
-                  }
-                />
-                <Route
-                  path="/ordenes"
-                  element={
-                    <MainLayout>
-                      <Orders />
-                    </MainLayout>
-                  }
-                />
-                <Route
-                  path="/estado-de-orden"
-                  element={
-                    <MainLayout>
-                      <OrderStatus userId={userId} />
-                    </MainLayout>
-                  }
-                />
-                <Route
-                  path="/pago"
-                  element={
-                    <MainLayout>
-                      <PaymentPage />
-                    </MainLayout>
-                  }
-                />
-                <Route
-                  path="/anvorguesa"
-                  element={
-                    <MainLayout>
-                      <Burguer />
-                    </MainLayout>
-                  }
-                />
-                <Route
-                  path="/meowstres"
-                  element={
-                    <MainLayout>
-                      <Desert />
-                    </MainLayout>
-                  }
-                />
-                <Route
-                  path="/catseosas"
-                  element={
-                    <MainLayout>
-                      <Soda />
-                    </MainLayout>
-                  }
-                />
-                <Route
-                  path="/meowscream"
-                  element={
-                    <MainLayout>
-                      <IceCream />
-                    </MainLayout>
-                  }
-                />
-                <Route
-                  path="/meowsterybox"
-                  element={
-                    <MainLayout>
-                      <MisteryBox />
-                    </MainLayout>
-                  }
-                />
-              </>
-            ) : (
-              <Route path="*" element={<Loader onEnter={handleEnter} />} />
-            )}
-          </Routes>
+              {hasEntered ? (
+                <>
+                  <Route
+                    path="/"
+                    element={
+                      <MainLayout>
+                        <Home />
+                      </MainLayout>
+                    }
+                  />
+                  <Route
+                    path="/menu"
+                    element={
+                      <MainLayout>
+                        <Menu products={allProducts} />
+                      </MainLayout>
+                    }
+                  />
+                  <Route
+                    path="/carrito"
+                    element={
+                      <MainLayout>
+                        <Cart />
+                      </MainLayout>
+                    }
+                  />
+                  <Route
+                    path="/ordenes"
+                    element={
+                      <MainLayout>
+                        <Orders />
+                      </MainLayout>
+                    }
+                  />
+                  <Route
+                    path="/estado-de-orden"
+                    element={
+                      <MainLayout>
+                        <OrderStatus userId={userId} />
+                      </MainLayout>
+                    }
+                  />
+                  <Route
+                    path="/pago"
+                    element={
+                      <MainLayout>
+                        <PaymentPage />
+                      </MainLayout>
+                    }
+                  />
+                  <Route
+                    path="/anvorguesa"
+                    element={
+                      <MainLayout>
+                        <Burguer />
+                      </MainLayout>
+                    }
+                  />
+                  <Route
+                    path="/meowstres"
+                    element={
+                      <MainLayout>
+                        <Desert />
+                      </MainLayout>
+                    }
+                  />
+                  <Route
+                    path="/catseosas"
+                    element={
+                      <MainLayout>
+                        <Soda />
+                      </MainLayout>
+                    }
+                  />
+                  <Route
+                    path="/meowscream"
+                    element={
+                      <MainLayout>
+                        <IceCream />
+                      </MainLayout>
+                    }
+                  />
+                  <Route
+                    path="/meowsterybox"
+                    element={
+                      <MainLayout>
+                        <MisteryBox />
+                      </MainLayout>
+                    }
+                  />
+                </>
+              ) : (
+                <Route path="*" element={<Loader onEnter={handleEnter} />} />
+              )}
+            </Routes>
+          </div>
         </div>
-      </div>
-    </Router>
-  </CartProvider>
+      </Router>
+    </CartProvider>
   );
 };
 
