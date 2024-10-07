@@ -3,14 +3,14 @@ import { getAuth } from "firebase/auth";
 import { getDatabase } from "firebase/database"; 
 
 const firebaseConfig = {
-    apiKey: import.meta.env.VITE_API_KEY,
-    authDomain: import.meta.env.VITE_AUTH_DOMAIN,
-    databaseURL: import.meta.env.VITE_DATABASE_URL,
-    projectId: import.meta.env.VITE_PROJECT_ID,
-    storageBucket: import.meta.env.VITE_STORAGE_BUCKET,
-    messagingSenderId: import.meta.env.VITE_MESSAGING_SENDER_ID,
-    appId: import.meta.env.VITE_APP_ID,
-    measurementId: import.meta.env.VITE_MEASUREMENT_ID,
+    apiKey: "AIzaSyAVPTnIN2mwkKNhSLzyVwGlywmMdSAitBQ",
+    authDomain: "burguercatback.firebaseapp.com",
+    databaseURL: "https://burguercatback-default-rtdb.firebaseio.com/",
+    projectId: "burguercatback",
+    storageBucket: "burguercatback.appspot.com",
+    messagingSenderId: "145802357683",
+    appId: "1:145802357683:web:cda02210f4139d3ba979c6",
+    measurementId: "G-3Q280DG9KY",
 };
 
 const app = initializeApp(firebaseConfig);
