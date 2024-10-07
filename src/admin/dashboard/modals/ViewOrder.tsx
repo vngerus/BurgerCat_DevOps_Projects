@@ -1,56 +1,82 @@
-import { FC } from "react"
+import { FC } from "react";
+import { AiOutlineClose } from "react-icons/ai";
 
-const ViewOrder: FC = () => {
+interface CartItem {
+    image?: string
+    name: string;
+    price: number;
+    quantity: number;
+    category: string;
+}
 
+interface Order {
+    items: CartItem[];
+    preparationTime: number;
+    status: string;
+}
+
+const ViewOrder: FC<{ onClose: () => void; order: Order }> = ({ onClose, order }) => {
     return (
-        <div id="crud-modal" aria-hidden="true" className="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-            <div className="relative p-4 w-full max-w-md max-h-full">
-                <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                    <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
-                        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                            Create New Product
-                        </h3>
-                        <button type="button" className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="crud-modal">
-                            <svg className="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                            </svg>
-                            <span className="sr-only">Close modal</span>
-                        </button>
-                    </div>
-                    <form className="p-4 md:p-5">
-                        <div className="grid gap-4 mb-4 grid-cols-2">
-                            <div className="col-span-2">
-                                <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
-                                <input type="text" name="name" id="name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Type product name" required />
+        <div id="crud-modal" className="fixed inset-0 z-50 flex items-center justify-center bg-gray-900 bg-opacity-50">
+            <div className="relative p-6 w-full max-w-lg max-h-full bg-white rounded-lg shadow-lg">
+                <div className="flex items-center justify-between border-b pb-4 mb-4">
+                    <h3 className="text-xl font-bold text-gray-800">Detalles de la Orden</h3>
+                    <button
+                        type="button"
+                        className="text-gray-400 hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 inline-flex justify-center items-center"
+                        onClick={onClose}
+                    >
+                        <AiOutlineClose className="w-6 h-6" />
+                    </button>
+                </div>
+
+                <div className="space-y-6">
+                    {order.items.map((item, index) => (
+                        <div key={index} className="flex justify-between items-center border-b pb-4">
+                            <div className="flex items-start space-x-4">
+                                {item.image && (
+                                    <div className="w-16 h-16 bg-gray-200 rounded-lg">
+                                        <img
+                                            src={item.image}
+                                            alt={item.name}
+                                            className="object-cover w-full h-full rounded-lg"
+                                        />
+                                    </div>
+                                )}
+                                <div>
+                                    <p className="text-sm font-medium text-gray-900">{item.name}</p>
+                                    <p className="text-xs text-gray-500">Categoría: {item.category}</p>
+                                    <p className="text-xs text-gray-500">Cantidad: {item.quantity}</p>
+                                </div>
                             </div>
-                            <div className="col-span-2 sm:col-span-1">
-                                <label htmlFor="price" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Price</label>
-                                <input type="number" name="price" id="price" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="$2999" required />
-                            </div>
-                            <div className="col-span-2 sm:col-span-1">
-                                <label htmlFor="category" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Category</label>
-                                <select id="category" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                                    <option selected>Select category</option>
-                                    <option value="TV">TV/Monitors</option>
-                                    <option value="PC">PC</option>
-                                    <option value="GA">Gaming/Console</option>
-                                    <option value="PH">Phones</option>
-                                </select>
-                            </div>
-                            <div className="col-span-2">
-                                <label htmlFor="description" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Product Description</label>
-                                <textarea id="description" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write product description here"></textarea>
+                            <div className="text-right">
+                                <p className="text-sm font-semibold text-gray-900">${item.price.toFixed(2)}</p>
+                                <p className="text-xs text-gray-500">
+                                    Total: ${(item.price * item.quantity).toFixed(2)}
+                                </p>
                             </div>
                         </div>
-                        <button type="submit" className="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                            <svg className="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
-                            Add new product
-                        </button>
-                    </form>
+                    ))}
+                </div>
+
+                <div className="mt-6 border-t pt-4 space-y-2">
+                    <p className="text-sm text-gray-900">
+                        <strong>Tiempo de Preparación:</strong> {order.preparationTime} minutos
+                    </p>
+                    <p
+                        className={`text-sm font-medium ${order.status === "completed"
+                            ? "text-green-600"
+                            : order.status === "pending"
+                                ? "text-yellow-600"
+                                : "text-red-600"
+                            }`}
+                    >
+                        <strong>Estado:</strong> {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
+                    </p>
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default ViewOrder
+export default ViewOrder;
