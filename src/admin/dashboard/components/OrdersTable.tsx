@@ -5,6 +5,7 @@ import { db } from '../../../firebase/firebaseConfig';
 import ViewOrder from '../modals/ViewOrder';
 import EditOrder from '../modals/EditOrder';
 import DeleteOrder from '../modals/DeleteOrder';
+import LoaderModal from '../modals/LoaderModal';
 
 interface CartItem {
   name: string;
@@ -30,13 +31,14 @@ const OrdersTable: React.FC = () => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [showViewModal, setShowViewModal] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const [currentPage, setCurrentPage] = useState<number>(1);
   const ordersPerPage = 5;
 
-  useEffect(() => {
+  const fetchOrders = () => {
     const ordersRef = ref(db, 'orders');
-    const unsubscribe = onValue(ordersRef, (snapshot) => {
+    onValue(ordersRef, (snapshot) => {
       const data = snapshot.val();
       if (data) {
         const ordersList = Object.keys(data).map((key) => ({
@@ -46,17 +48,24 @@ const OrdersTable: React.FC = () => {
         setOrders(ordersList);
       }
     });
-    return () => unsubscribe();
+  };
+
+  useEffect(() => {
+    fetchOrders();
   }, []);
 
   const handleDeleteOrder = (orderId: string) => {
+    setIsLoading(true);
     const orderRef = ref(db, `orders/${orderId}`);
     remove(orderRef)
       .then(() => {
-        setShowDeleteModal(false); // Removemos la alerta y solo cerramos el modal
+        setIsLoading(false);
+        setShowDeleteModal(false);
+        fetchOrders();
       })
       .catch((error) => {
-        console.error('Error al eliminar el pedido: ' + error.message); // O puedes manejar el error de otra manera si lo prefieres
+        setIsLoading(false);
+        console.error('Error al eliminar el pedido: ' + error.message);
       });
   };
 
@@ -65,10 +74,11 @@ const OrdersTable: React.FC = () => {
       const orderRef = ref(db, `orders/${selectedOrder.id}`);
       update(orderRef, updatedData)
         .then(() => {
-          setShowEditModal(false); // Removemos la alerta y solo cerramos el modal
+          setShowEditModal(false);
+          fetchOrders();
         })
         .catch((error) => {
-          console.error('Error al guardar el pedido: ' + error.message); // Manejo de errores sin alertas
+          console.error('Error al guardar el pedido: ' + error.message);
         });
     }
   };
@@ -216,6 +226,8 @@ const OrdersTable: React.FC = () => {
           onCancel={() => setShowDeleteModal(false)}
         />
       )}
+
+      {isLoading && <LoaderModal />}
     </div>
   );
 };

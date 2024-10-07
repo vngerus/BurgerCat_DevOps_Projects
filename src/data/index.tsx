@@ -74,13 +74,6 @@ export const desert = [
 
 export const icecream = [
     {
-        name: 'Purrcream',
-        image: heladosimple,
-        description: 'Helado de vainilla cremoso y refrescante, perfecto para gatos que adoran el dulce.',
-        price: 1990,
-        category: 'helado',
-    },
-    {
         name: 'Triple Miaugusto',
         image: heladotriple,
         description: 'Tres bolas de helado con sabor a chocolate, fresa y vainilla para una experiencia felina triple.',
@@ -95,10 +88,17 @@ export const icecream = [
         category: 'helado',
     },
     {
-        name: 'Kittiescream',
+        name: 'The Kittiescream',
         image: kitties,
         description: 'Mini helados en forma de gatitos, ideales para compartir o para un capricho.',
         price: 2990,
+        category: 'helado',
+    },
+    {
+        name: 'Purrcream',
+        image: heladosimple,
+        description: 'Helado de vainilla cremoso y refrescante, perfecto para gatos que adoran el dulce.',
+        price: 1990,
         category: 'helado',
     },
 ];
