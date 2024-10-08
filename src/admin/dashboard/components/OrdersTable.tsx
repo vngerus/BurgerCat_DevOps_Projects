@@ -2,9 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { ref, onValue, remove, update } from 'firebase/database';
 import { AiOutlineDelete, AiOutlineEdit, AiOutlineEye } from 'react-icons/ai';
 import { db } from '../../../firebase/firebaseConfig';
-import { Borrar, Cargar, Editar, Ver } from '../modals';
-
-
+import { ViewOrder, EditOrder, DeleteOrder, LoaderModal } from '../modals';
 
 interface CartItem {
   name: string;
@@ -208,11 +206,11 @@ const OrdersTable: React.FC = () => {
       )}
 
       {showViewModal && selectedOrder && (
-        <Ver onClose={() => setShowViewModal(false)} order={selectedOrder} />
+        <ViewOrder onClose={() => setShowViewModal(false)} order={selectedOrder} />
       )}
 
       {showEditModal && selectedOrder && (
-        <Editar
+        <EditOrder
           onClose={() => setShowEditModal(false)}
           onSave={(updatedData) => handleSaveOrder(updatedData)}
           order={selectedOrder}
@@ -220,13 +218,13 @@ const OrdersTable: React.FC = () => {
       )}
 
       {showDeleteModal && selectedOrder && (
-        <Borrar
+        <DeleteOrder
           onDelete={() => handleDeleteOrder(selectedOrder.id)}
           onCancel={() => setShowDeleteModal(false)}
         />
       )}
 
-      {isLoading && <Cargar />}
+      {isLoading && <LoaderModal />}
     </div>
   );
 };
