@@ -1,4 +1,4 @@
-name: Check Website Status
+name: Check Website Status and Update README
 
 on:
   workflow_dispatch:
@@ -30,7 +30,8 @@ jobs:
           echo "$CURRENT_TIME - $STATUS"
 
           # Agregar el resultado al README.md
-          echo "$CURRENT_TIME - $STATUS" >> README.md
+          # Usamos sed para insertar el resultado en la sección correspondiente
+          sed -i "/## Prueba de estado de la pagina:/a $CURRENT_TIME - $STATUS" README.md
 
       - name: Commit changes
         run: |

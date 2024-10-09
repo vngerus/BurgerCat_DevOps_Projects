@@ -23,13 +23,7 @@ Las siguientes tecnologías forman la base de desarrollo del proyecto:
 - Gestión de pedidos y historial de compras.
 - Testeos aún por definir.
 
-## Resultados de las pruebas
-
-<!-- TEST RESULTS START -->
-
-Los resultados de las pruebas se actualizarán automáticamente aquí.
-
-<!-- TEST RESULTS END -->
+## Prueba de estado de la pagina:
 
 ## Instalación
 
