@@ -1,4 +1,4 @@
-name: Deploy and Test Pipeline
+name: Status Page
 
 on:
   push:
@@ -43,6 +43,7 @@ jobs:
           CURRENT_TIME=$(date '+%Y-%m-%d %H:%M:%S')  # Obtener la hora actual
           echo "## Prueba de estado de la página\n" >> README.md
           echo "$CURRENT_TIME - $STATUS" >> README.md
+          echo "" >> README.md  # Agregar una línea vacía para formato
 
       - name: Commit changes
         run: |
@@ -51,3 +52,6 @@ jobs:
           git add README.md
           git commit -m "Actualización del estado de la página" || echo "No hay cambios para hacer commit."
           git push https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/vngerus/BurgerCat_DevOps_Projects.git
+
+      - name: Ensure success
+        run: echo "Workflow completed successfully."
