@@ -1,57 +1,43 @@
-name: Status Page
+name: Check Website Status
 
 on:
-  push:
-    branches:
-      - production
-  pull_request:
-    branches:
-      - production
+  workflow_dispatch:
   schedule:
     - cron: "0 */2 * * *"
 
 jobs:
-  check-status:
+  check-website-status:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: "18"
-
-      - name: Install dependencies
-        run: npm install
+        uses: actions/checkout@v2
 
       - name: Check deployment status
+        id: check_status
         run: |
           URL="https://burgercat.netlify.app"
+
           if curl --silent --fail "$URL"; then
-            echo "La página está funcionando correctamente."
             STATUS="✅ La página está funcionando correctamente."
           else
-            echo "Error: La página no está disponible."
-            STATUS="❌ La página no está disponible."
-            exit 1
+            STATUS="❌ Error: La página no está disponible."
           fi
 
-      - name: Update status log
-        run: |
-          CURRENT_TIME=$(date '+%Y-%m-%d %H:%M:%S')  # Obtener la hora actual
-          echo "## Estado de la Página" >> status_log.md
-          echo "$CURRENT_TIME - $STATUS" >> status_log.md
-          echo "" >> status_log.md  # Agregar una línea vacía para formato
+          CURRENT_TIME=$(date '+%Y-%m-%d %H:%M:%S')
+          echo "$CURRENT_TIME - $STATUS"
+          echo "$CURRENT_TIME - $STATUS" >> README.md
 
       - name: Commit changes
         run: |
-          git config --local user.name "GitHub Actions"
-          git config --local user.email "actions@github.com"
-          git add status_log.md
-          git commit -m "Actualización del estado de la página" || echo "No hay cambios para hacer commit."
-          git push https://x-access-token:${{ secrets.MY_PERSONAL_ACCESS_TOKEN }}@github.com/vngerus/BurgerCat_DevOps_Projects.git
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git add README.md
+          git commit -m "Actualización del estado de la página: $CURRENT_TIME" || echo "No hay cambios para hacer commit."
+
+      - name: Push changes
+        run: |
+          git push https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/vngerus/BurgerCat_DevOps_Projects.git || echo "No se pudo hacer push, revisa si hubo algún cambio pendiente."
 
       - name: Ensure success
         run: echo "Workflow completed successfully."
