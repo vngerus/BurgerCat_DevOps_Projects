@@ -41,7 +41,7 @@ jobs:
       - name: Update status log
         run: |
           CURRENT_TIME=$(date '+%Y-%m-%d %H:%M:%S')  # Obtener la hora actual
-          echo "## Estado de la Página\n" >> status_log.md
+          echo "## Estado de la Página" >> status_log.md
           echo "$CURRENT_TIME - $STATUS" >> status_log.md
           echo "" >> status_log.md  # Agregar una línea vacía para formato
 
