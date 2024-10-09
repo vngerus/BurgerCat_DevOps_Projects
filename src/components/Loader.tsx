@@ -16,7 +16,7 @@ const Loader: React.FC<LoaderProps> = ({ onEnter }) => {
         if (savedTable && savedTimestamp && now - parseInt(savedTimestamp) < 3600000) {
             setTableNumber(Number(savedTable));
         } else {
-            const randomTable = Math.floor(Math.random() * 30) + 1;
+            const randomTable = Math.floor(Math.random() * 40) + 1;
             setTableNumber(randomTable);
             localStorage.setItem('tableNumber', String(randomTable));
             localStorage.setItem('tableTimestamp', String(now));
