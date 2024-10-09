@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaBars, FaHome, FaShoppingCart } from 'react-icons/fa';
+import { FaHome, FaShoppingCart } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../context/cartContext';
 
@@ -20,10 +20,7 @@ const Sidebar: React.FC = () => {
                <FaHome className="w-6 h-6 mx-auto" />
                <span className="text-xs hidden">Inicio</span>
             </a>
-            <a onClick={() => navigate('/menu')} className="text-center cursor-pointer">
-               <FaBars className="w-6 h-6 mx-auto" />
-               <span className="text-xs hidden">Menú</span>
-            </a>
+
             <a onClick={() => navigate('/carrito')} className="text-center cursor-pointer relative">
                <FaShoppingCart className="w-6 h-6 mx-auto" />
                {totalItems > 0 && (

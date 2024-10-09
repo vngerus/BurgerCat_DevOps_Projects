@@ -10,10 +10,10 @@ const Home: React.FC = () => {
                 <img src={promo1} alt="Promo Burger" className="my-6 rounded-lg shadow-md" />
             </div>
 
-            <div className="my-8">
-                <h2 className="text-3xl font-semibold text-gray-800 text-center">¡La Clásica de siempre por $4.990!</h2>
+            <div className="my-8 mb-12">
+                <h2 className="text-3xl font-semibold text-gray-800 text-center mb-2">¡La Clásica de siempre por $4.990!</h2>
                 <div className="bg-red-500 text-white p-6 rounded-lg shadow-md text-center">
-                    <p className="text-lg font-medium">Sólo por tiempo limitado. ¡Disfrútala hoy!</p>
+                    <p className="text-lg font-medium ">Sólo por tiempo limitado. ¡Disfrútala hoy!</p>
                 </div>
             </div>
         </div>

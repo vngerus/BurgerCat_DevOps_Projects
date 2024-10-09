@@ -16,13 +16,12 @@ Las siguientes tecnologías forman la base de desarrollo del proyecto:
 - ![Jenkins](https://img.shields.io/badge/jenkins-%232C5263.svg?style=for-the-badge&logo=jenkins&logoColor=white)
 - ![Netlify](https://img.shields.io/badge/netlify-%23000000.svg?style=for-the-badge&logo=netlify&logoColor=#00C7B7)
 
-## Resultados de las pruebas
+## Características a implementar:
 
-<!-- TEST RESULTS START -->
-
-Los resultados de las pruebas se actualizarán automáticamente aquí.
-
-<!-- TEST RESULTS END -->
+- Sistema de navegación y filtros para el catálogo de productos.
+- Visualización detallada de cada producto.
+- Gestión de pedidos y historial de compras.
+- Testeos aún por definir
 
 ## Instalación
 
