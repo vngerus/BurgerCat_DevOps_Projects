@@ -21,7 +21,7 @@ Las siguientes tecnologías forman la base de desarrollo del proyecto:
 - Sistema de navegación y filtros para el catálogo de productos.
 - Visualización detallada de cada producto.
 - Gestión de pedidos y historial de compras.
-- Testeos aún por definir
+- Testeos aún por definir.
 
 ## Resultados de las pruebas
 
