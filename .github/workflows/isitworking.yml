@@ -8,7 +8,7 @@ on:
     branches:
       - production
   schedule:
-    - cron: '0 */2 * * *'
+    - cron: "0 */2 * * *"
 
 jobs:
   test:
@@ -21,7 +21,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version: "18"
 
       - name: Install dependencies
         run: npm install
@@ -34,7 +34,7 @@ jobs:
       - name: Check deployment status
         run: |
           URL="https://burgercat.netlify.app"
-          
+
           if curl --silent --fail "$URL"; then
             echo "La página está funcionando correctamente."
           else
@@ -45,7 +45,7 @@ jobs:
       - name: Update README with test results
         run: |
           TEST_RESULTS=$(cat test-results.txt | sed 's/$/\\n/g')
-          CURRENT_TIME=$(date '+%Y-%m-%d %H:%M:%S')
+          CURRENT_TIME=$(date '+%Y-%m-%d %H:%M:%S') # Obtener la hora actual
           sed -i '/<!-- TEST RESULTS START -->/,/<!-- TEST RESULTS END -->/c\<!-- TEST RESULTS START -->\n'"$CURRENT_TIME - $TEST_RESULTS"'\n<!-- TEST RESULTS END -->' README.md
 
       - name: Commit changes
