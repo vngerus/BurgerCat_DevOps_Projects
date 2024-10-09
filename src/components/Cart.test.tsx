@@ -27,6 +27,7 @@ describe('Cart Component', () => {
             category: 'hamburguesa',
         };
 
+        // Mockear el contexto para simular que hay un producto en el carrito
         render(
             <AuthProvider>
                 <CartProvider>
@@ -35,6 +36,7 @@ describe('Cart Component', () => {
             </AuthProvider>
         );
 
+        // Simular que se ha agregado el producto al carrito
         const itemName = screen.getByText(mockCartItem.name);
         expect(itemName).toBeInTheDocument();
 
@@ -43,6 +45,14 @@ describe('Cart Component', () => {
     });
 
     test('El botón de eliminar funciona correctamente', () => {
+        const mockCartItem = {
+            name: 'Big Miau',
+            quantity: 2,
+            price: 4990,
+            image: 'image-url',
+            category: 'hamburguesa',
+        };
+
         render(
             <AuthProvider>
                 <CartProvider>
@@ -51,8 +61,16 @@ describe('Cart Component', () => {
             </AuthProvider>
         );
 
+        // Comprobar que el producto está en el carrito
+        const itemName = screen.getByText(mockCartItem.name);
+        expect(itemName).toBeInTheDocument();
+
+        // Simular clic en el botón de eliminar
         const removeButton = screen.getByText(/Eliminar/i);
         fireEvent.click(removeButton);
+
+        // Comprobar que el botón y el artículo ya no están en el documento
+        expect(itemName).not.toBeInTheDocument();
         expect(removeButton).not.toBeInTheDocument();
     });
 });
