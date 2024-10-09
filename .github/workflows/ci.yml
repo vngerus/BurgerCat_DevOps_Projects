@@ -1,0 +1,46 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        run: |
+          npm test > test-results.txt
+        continue-on-error: true
+
+      - name: Update README with test results
+        run: |
+          # Read test results from file
+          TEST_RESULTS=$(cat test-results.txt)
+          
+          # Use sed to replace content between <!-- TEST RESULTS START --> and <!-- TEST RESULTS END -->
+          sed -i '/<!-- TEST RESULTS START -->/,/<!-- TEST RESULTS END -->/c\<!-- TEST RESULTS START -->\n$TEST_RESULTS\n<!-- TEST RESULTS END -->' README.md
+
+      - name: Commit changes
+        run: |
+          git config --local user.name "GitHub Actions"
+          git config --local user.email "actions@github.com"
+          git add README.md
+          git commit -m "test: se añaden resultados de los testeos con jest creados por pipeline"
+          git push
