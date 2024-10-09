@@ -1,51 +1,44 @@
-name: Deploy and Test Pipeline
+name: Check Website Status
 
 on:
-  push:
-    branches:
-      - production
-  pull_request:
-    branches:
-      - production
+  workflow_dispatch:
   schedule:
     - cron: "0 */2 * * *"
 
 jobs:
-  test:
+  check-website-status:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: "18"
-
-      - name: Install dependencies
-        run: npm install
+        uses: actions/checkout@v2
 
       - name: Check deployment status
         run: |
           URL="https://burgercat.netlify.app"
 
           if curl --silent --fail "$URL"; then
-            echo "La página está funcionando correctamente."
+            STATUS="La página está funcionando correctamente."
           else
-            echo "Error: La página no está disponible."
-            exit 1
+            STATUS="Error: La página no está disponible."
           fi
 
-      - name: Update README with test results
-        run: |
-          CURRENT_TIME=$(date '+%Y-%m-%d %H:%M:%S') # Obtener la hora actual
-          echo "<!-- TEST RESULTS START -->\n$CURRENT_TIME - No se realizaron pruebas en esta ejecución.\n<!-- TEST RESULTS END -->" > README.md
+          # Obtener la fecha y hora actual
+          CURRENT_TIME=$(date '+%Y-%m-%d %H:%M:%S')
+
+          # Imprimir el resultado en la consola
+          echo "$CURRENT_TIME - $STATUS"
+
+          # Agregar el resultado al README.md
+          echo "$CURRENT_TIME - $STATUS" >> README.md
 
       - name: Commit changes
         run: |
-          git config --local user.name "vngerus"
-          git config --local user.email "angelsmithlgs@gmail.com" 
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
           git add README.md
-          git commit -m "info: no se realizaron pruebas en esta ejecución" || echo "No hay cambios para hacer commit."
-          git push https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/vngerus/BurgerCat_DevOps_Projects.git
+          git commit -m "Actualización del estado de la página: $CURRENT_TIME" || echo "No hay cambios para hacer commit."
+
+      - name: Push changes
+        run: |
+          git push https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/vngerus/BurgerCat_DevOps_Projects.git || echo "No se pudo hacer push, revisa si hubo algún cambio pendiente."
