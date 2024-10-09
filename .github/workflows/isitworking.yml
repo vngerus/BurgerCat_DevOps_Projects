@@ -38,18 +38,18 @@ jobs:
             exit 1
           fi
 
-      - name: Update README with page status
+      - name: Update status log
         run: |
           CURRENT_TIME=$(date '+%Y-%m-%d %H:%M:%S')  # Obtener la hora actual
-          echo "## Prueba de estado de la página\n" >> README.md
-          echo "$CURRENT_TIME - $STATUS" >> README.md
-          echo "" >> README.md  # Agregar una línea vacía para formato
+          echo "## Estado de la Página\n" >> status_log.md
+          echo "$CURRENT_TIME - $STATUS" >> status_log.md
+          echo "" >> status_log.md  # Agregar una línea vacía para formato
 
       - name: Commit changes
         run: |
           git config --local user.name "GitHub Actions"
           git config --local user.email "actions@github.com"
-          git add README.md
+          git add status_log.md
           git commit -m "Actualización del estado de la página" || echo "No hay cambios para hacer commit."
           git push https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/vngerus/BurgerCat_DevOps_Projects.git
 
