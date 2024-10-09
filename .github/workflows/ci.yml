@@ -41,4 +41,4 @@ jobs:
           git config --local user.email "actions@github.com"
           git add README.md
           git commit -m "test: se añaden resultados de los testeos con jest creados por pipeline"
-          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
+          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/vngerus/BurgerCat_DevOps_Projects.git
