@@ -44,8 +44,8 @@ jobs:
 
       - name: Commit changes
         run: |
-          git config --local user.name "GitHub Actions"
-          git config --local user.email "actions@github.com"
+          git config --local user.name "vngerus"
+          git config --local user.email "angelsmithlgs@gmail.com" 
           git add README.md
           git commit -m "info: no se realizaron pruebas en esta ejecución" || echo "No hay cambios para hacer commit."
           git push https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/vngerus/BurgerCat_DevOps_Projects.git
