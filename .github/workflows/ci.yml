@@ -3,7 +3,7 @@ name: CI Pipeline
 on:
   push:
     branches:
-      - main
+      - production
   pull_request:
     branches:
       - production
@@ -31,11 +31,9 @@ jobs:
 
       - name: Update README with test results
         run: |
-          # Read test results from file
-          TEST_RESULTS=$(cat test-results.txt)
+          TEST_RESULTS=$(cat test-results.txt | sed 's/$/\\n/g')
           
-          # Use sed to replace content between <!-- TEST RESULTS START --> and <!-- TEST RESULTS END -->
-          sed -i '/<!-- TEST RESULTS START -->/,/<!-- TEST RESULTS END -->/c\<!-- TEST RESULTS START -->\n$TEST_RESULTS\n<!-- TEST RESULTS END -->' README.md
+          sed -i '/<!-- TEST RESULTS START -->/,/<!-- TEST RESULTS END -->/c\<!-- TEST RESULTS START -->\n'"$TEST_RESULTS"'\n<!-- TEST RESULTS END -->' README.md
 
       - name: Commit changes
         run: |
