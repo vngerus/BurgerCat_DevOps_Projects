@@ -11,7 +11,7 @@ on:
     - cron: "0 */2 * * *"
 
 jobs:
-  test:
+  check-status:
     runs-on: ubuntu-latest
 
     steps:
@@ -27,31 +27,22 @@ jobs:
         run: npm install
 
       - name: Check deployment status
-        id: check_status
         run: |
           URL="https://burgercat.netlify.app"
           if curl --silent --fail "$URL"; then
             echo "La página está funcionando correctamente."
-            echo "status=success" >> $GITHUB_ENV  # Define el estado como success
+            STATUS="✅ La página está funcionando correctamente."
           else
             echo "Error: La página no está disponible."
-            echo "status=fail" >> $GITHUB_ENV  # Define el estado como fail
+            STATUS="❌ La página no está disponible."
             exit 1
           fi
 
-      - name: Update README with status
+      - name: Update README with page status
         run: |
-          STATUS="${{ env.status }}"
           CURRENT_TIME=$(date '+%Y-%m-%d %H:%M:%S')  # Obtener la hora actual
-
-          if [ "$STATUS" == "success" ]; then
-            STATUS_MARK="✅ La página está funcionando bien."
-          else
-            STATUS_MARK="❌ La página se encuentra caída."
-          fi
-
-          # Actualizar el README.md
-          sed -i "/## Prueba de estado de la pagina:/a \ \n- $CURRENT_TIME: $STATUS_MARK" README.md
+          echo "## Prueba de estado de la página\n" >> README.md
+          echo "$CURRENT_TIME - $STATUS" >> README.md
 
       - name: Commit changes
         run: |
