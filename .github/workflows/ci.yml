@@ -19,7 +19,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '16'
+          node-version: "16"
 
       - name: Install dependencies
         run: npm install
@@ -31,9 +31,9 @@ jobs:
 
       - name: Update README with test results
         run: |
-          TEST_RESULTS=$(cat test-results.txt | sed 's/$/\\n/g')
-          
-          sed -i '/<!-- TEST RESULTS START -->/,/<!-- TEST RESULTS END -->/c\<!-- TEST RESULTS START -->\n'"$TEST_RESULTS"'\n<!-- TEST RESULTS END -->' README.md
+          TEST_RESULTS=$(cat test-results.txt | sed -r ':a;N;$!ba;s/\n/\\n/g')
+
+          sed -i -e '/<!-- TEST RESULTS START -->/,/<!-- TEST RESULTS END -->/c\<!-- TEST RESULTS START -->\n'"$TEST_RESULTS"'\n<!-- TEST RESULTS END -->' README.md
 
       - name: Commit changes
         run: |
@@ -41,4 +41,4 @@ jobs:
           git config --local user.email "actions@github.com"
           git add README.md
           git commit -m "test: se añaden resultados de los testeos con jest creados por pipeline"
-          git push
+          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
