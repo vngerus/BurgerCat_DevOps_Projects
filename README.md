@@ -2,7 +2,7 @@
 
 ## Descripción
 
-Proyecto en PROCESO para Certificación de DevOps de Kibernum IT en conjunto a Talento Digital para Chile. Este proyecto busca implementar y demostrar prácticas de desarrollo y operaciones eficientes utilizando tecnologías modernas de front-end, back-end y testeos unitarios.
+Proyecto final para la Certificación en DevOps de Kibernum IT en colaboración con Talento Digital para Chile. El objetivo de este proyecto es implementar y demostrar prácticas eficientes de desarrollo y operaciones, empleando tecnologías modernas en front-end, back-end, pruebas unitarias y CI/CD.
 
 ## Tecnologías Utilizadas
 
