@@ -18,10 +18,10 @@ Las siguientes tecnologías forman la base de desarrollo del proyecto:
 
 ## Características a implementar:
 
-- Sistema de navegación y filtros para el catálogo de productos.
-- Visualización detallada de cada producto.
-- Gestión de pedidos y historial de compras.
-- Testeos aún por definir.
+- Sistema de navegación y filtros para el catálogo de productos. ![Ready](https://img.shields.io/badge/status-ready-brightgreen)
+- Visualización detallada de cada producto. ![Ready](https://img.shields.io/badge/status-ready-brightgreen)
+- Gestión de pedidos y historial de compras. ![Ready](https://img.shields.io/badge/status-ready-brightgreen)
+- Testeos desde jenkins. ![Ready](https://img.shields.io/badge/status-ready-brightgreen)
 
 ## Prueba de estado de la pagina:
 
